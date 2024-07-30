@@ -1,0 +1,120 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsme7tymvsh5v"]
+
+[ext_resource type="Script" path="res://UI/settings.gd" id="1_1ffur"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0ymb"]
+bg_color = Color(0.188235, 0.188235, 0.188235, 0.784314)
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_1ffur")
+
+[node name="ButtonMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 116.0
+offset_bottom = 58.0
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="SettingsButton" type="Button" parent="ButtonMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Stretch" type="Control" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+mouse_filter = 2
+
+[node name="Stretch" type="Control" parent="HBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="SettingsPanel" type="PanelContainer" parent="HBox/VBox"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i0ymb")
+
+[node name="Margin" type="MarginContainer" parent="HBox/VBox/SettingsPanel"]
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="HBox/VBox/SettingsPanel/Margin"]
+layout_mode = 2
+mouse_filter = 0
+
+[node name="Label" type="RichTextLabel" parent="HBox/VBox/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/bold_font_size = 36
+bbcode_enabled = true
+text = "[center][b]Settings[/b][/center]"
+fit_content = true
+
+[node name="VSeparator" type="HSeparator" parent="HBox/VBox/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="MasterVolume" type="Label" parent="HBox/VBox/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+mouse_filter = 0
+text = "Master Volume"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="HBox/VBox/SettingsPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="Stretch" type="Control" parent="HBox/VBox/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="HBox/VBox/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Restart"
+
+[node name="Stretch2" type="Control" parent="HBox/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Stretch2" type="Control" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
