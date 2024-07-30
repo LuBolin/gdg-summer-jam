@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1q7kel0tbmu8"]
+
+[ext_resource type="Script" path="res://grav_field.gd" id="1_n82oy"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t8ece"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_v6tbd"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_xccbc"]
+
+[node name="GravField" type="Area3D" groups=["gravity_field"]]
+script = ExtResource("1_n82oy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_t8ece")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("SphereShape3D_v6tbd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("SphereMesh_xccbc")
