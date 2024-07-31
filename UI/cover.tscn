@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://b15d2oix81f2m"]
 
-[ext_resource type="Script" path="res://UI/cover.gd" id="1_b8jfu"]
-[ext_resource type="Shader" path="res://UI/canvas_starfield.gdshader" id="1_jite5"]
-[ext_resource type="Texture2D" uid="uid://tf0nv163ejfv" path="res://UI/splash_name.png" id="2_li0o8"]
+[ext_resource type="Script" path="res://ui/cover.gd" id="1_b8jfu"]
+[ext_resource type="Shader" path="res://resources/canvas_starfield.gdshader" id="1_jite5"]
+[ext_resource type="Texture2D" uid="uid://tf0nv163ejfv" path="res://ui/splash_name.png" id="2_li0o8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jey1n"]
 shader = ExtResource("1_jite5")
@@ -18,8 +18,9 @@ shader_parameter/near_stars_color = Color(0.145098, 0.32549, 0.470588, 1)
 shader_parameter/base_scroll_speed = 0.01
 shader_parameter/additional_scroll_speed = 0.05
 
-[sub_resource type="Animation" id="Animation_g5v4y"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_004is"]
+resource_name = "FadeFromNothing"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -27,10 +28,10 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_sytu5"]
@@ -65,9 +66,8 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_004is"]
-resource_name = "FadeFromNothing"
-length = 0.5
+[sub_resource type="Animation" id="Animation_g5v4y"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -75,10 +75,10 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_swdb3"]
