@@ -1,4 +1,4 @@
-extends Node3D
+extends Area3D
 
 @export var force = 1
 
@@ -8,8 +8,11 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _physics_process(delta):
+	var areas = get_overlapping_bodies()
+	for area in areas:
+		if area is CharacterBody3D:
+			area.set_cog(self)
 
 func get_force():
 	return force
