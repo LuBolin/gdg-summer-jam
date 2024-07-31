@@ -1,0 +1,109 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdu4h7hecqrkq"]
+
+[ext_resource type="Script" path="res://progress_3d/camera_controls.gd" id="1_bplb2"]
+[ext_resource type="PackedScene" uid="uid://dqg1ybhx0mpqb" path="res://progress_3d/rocket_part.tscn" id="3_3u31i"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0yd8b"]
+radius = 0.8
+height = 2.0
+is_hemisphere = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_235vj"]
+top_radius = 0.8
+bottom_radius = 1.0
+height = 3.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xvngd"]
+top_radius = 1.0
+bottom_radius = 0.8
+height = 1.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_csnt3"]
+top_radius = 0.8
+bottom_radius = 1.5
+height = 1.5
+
+[node name="Progress3d" type="Node3D"]
+
+[node name="RocketRoot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11)
+current = true
+script = ExtResource("1_bplb2")
+
+[node name="Top" parent="." instance=ExtResource("3_3u31i")]
+pick_sphere_radius = 1.5
+pick_sphere_y = 3.0
+
+[node name="Model" type="MeshInstance3D" parent="Top"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.975, 0)
+mesh = SubResource("SphereMesh_0yd8b")
+skeleton = NodePath("../../RocketRoot")
+
+[node name="Middle" parent="." instance=ExtResource("3_3u31i")]
+pick_sphere_y = 0.5
+
+[node name="Model" type="MeshInstance3D" parent="Middle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_235vj")
+skeleton = NodePath("../../RocketRoot")
+
+[node name="Middle2" parent="." instance=ExtResource("3_3u31i")]
+pick_sphere_radius = 1.25
+pick_sphere_y = -1.5
+
+[node name="Model" type="MeshInstance3D" parent="Middle2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.625, 0)
+mesh = SubResource("CylinderMesh_xvngd")
+skeleton = NodePath("../../RocketRoot")
+
+[node name="Bottom" parent="." instance=ExtResource("3_3u31i")]
+pick_sphere_y = -3.0
+
+[node name="Model" type="MeshInstance3D" parent="Bottom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+mesh = SubResource("CylinderMesh_csnt3")
+skeleton = NodePath("../../RocketRoot")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7, 0)
+
+[node name="Crosshair" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -16.0
+offset_right = 4.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -4.0
+offset_right = 16.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
