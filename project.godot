@@ -13,8 +13,13 @@ config_version=5
 config/name="gdg-summer-jam"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://misc/icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://misc/default_bus_layout.tres"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
