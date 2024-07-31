@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://b15d2oix81f2m" path="res://ui/cover.tscn" id="1_mupu1"]
 [ext_resource type="PackedScene" uid="uid://dsme7tymvsh5v" path="res://ui/settings.tscn" id="2_ox2ea"]
 [ext_resource type="AudioStream" uid="uid://dortwej8u3bcm" path="res://resources/menu-bgm.mp3" id="3_1bk7p"]
-[ext_resource type="PackedScene" path="res://player.tscn" id="4_jhnrw"]
-[ext_resource type="PackedScene" path="res://grav_field.tscn" id="4_ogy1w"]
+[ext_resource type="PackedScene" uid="uid://dgecqjxsjatw1" path="res://player.tscn" id="4_jhnrw"]
+[ext_resource type="PackedScene" uid="uid://b1q7kel0tbmu8" path="res://grav_field.tscn" id="4_ogy1w"]
 
 [node name="Main" type="Node3D"]
 

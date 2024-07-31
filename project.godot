@@ -19,6 +19,10 @@ config/icon="res://misc/icon.svg"
 
 buses/default_bus_layout="res://misc/default_bus_layout.tres"
 
+[autoload]
+
+Global="*res://misc/global.gd"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

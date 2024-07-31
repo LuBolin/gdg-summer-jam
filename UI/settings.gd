@@ -20,7 +20,7 @@ func modify_master_volume(value: float):
 	)
 
 func sync_settings():
-	print(AudioServer.get_bus_volume_db(master_bus_index))
+	# print(AudioServer.get_bus_volume_db(master_bus_index))
 	master_volume_slider.value = db_to_linear(
 		AudioServer.get_bus_volume_db(master_bus_index)
 	)

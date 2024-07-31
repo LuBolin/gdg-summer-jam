@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqg1ybhx0mpqb"]
+
+[ext_resource type="Script" path="res://progress_3d/rocket_part.gd" id="1_gai80"]
+[ext_resource type="Shader" path="res://resources/wireframe.gdshader" id="2_18ifi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8x304"]
+transparency = 1
+albedo_color = Color(0, 0, 1, 0.380392)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pjlsh"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_8x304")
+radius = 2.0
+height = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a110u"]
+render_priority = 0
+shader = ExtResource("2_18ifi")
+shader_parameter/modelColor = Color(0, 0, 0, 0)
+shader_parameter/wireframeColor = Color(1, 0, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/modelOpacity = 0.5
+shader_parameter/filtered = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_rckvt"]
+lightmap_size_hint = Vector2i(44, 106)
+material = SubResource("ShaderMaterial_a110u")
+flip_faces = true
+size = Vector3(4, 8, 4)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1y5cf"]
+radius = 0.1
+
+[node name="RocketPart" type="CharacterBody3D"]
+script = ExtResource("1_gai80")
+
+[node name="PickSphere" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_pjlsh")
+skeleton = NodePath("")
+
+[node name="BBox" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_rckvt")
+
+[node name="IllusionBody" type="CharacterBody3D" parent="."]
+top_level = true
+collision_layer = 0
+collision_mask = 0
+
+[node name="IllusionMesh" type="MeshInstance3D" parent="IllusionBody"]
+skeleton = NodePath("../..")
+
+[node name="PlaceholderCollisionShape" type="CollisionShape3D" parent="IllusionBody"]
+shape = SubResource("SphereShape3D_1y5cf")
