@@ -28,6 +28,8 @@ static var remaining_parts_count: int = 0
 		var sphere: SphereMesh = ps.get_mesh()
 		sphere.radius = v
 		sphere.height = 2 * v
+		var i_label = ps.get_node("InteractLabel")
+		i_label.position = Vector3(0, 0, v)
 @export var pick_sphere_color: Color = Color('0000ff61'):
 	set(v):
 		pick_sphere_color = v
@@ -40,20 +42,24 @@ static var remaining_parts_count: int = 0
 		pick_sphere_y = v
 		var ps: MeshInstance3D = get_node("PickSphere")
 		ps.position.y = v
-@export var show_bbox: bool = true:
+@export var show_bbox: bool = false:
 	set(v):
 		show_bbox = v
-		var bbox = get_node("BBox")
+		var bbox = get_node_or_null("BBox")
+		if not bbox:
+			return
 		bbox.set_visible(v)
 
 @onready var pick_sphere: MeshInstance3D = $PickSphere
 @onready var b_box: Node3D = $BBox
+@onready var collision_shape: CollisionShape3D = $CollisionShape
 @onready var illusion_body: CharacterBody3D = $IllusionBody
 @onready var illusion_mesh: MeshInstance3D = $IllusionBody/IllusionMesh
+@onready var interact_label = $PickSphere/InteractLabel
 
 var model: MeshInstance3D
-var collision_shape: CollisionShape3D
 
+var initialized = false
 
 func _ready():
 	for c in get_children():
@@ -66,20 +72,24 @@ func _ready():
 			break
 	assert(model)
 	assert(pick_sphere)
+	model.set_layer_mask_value(3, true)
 	
-	if not Global.ship_progress_target.is_node_ready():
-		await Global.ship_progress_target.is_node_ready
-	
-	target = Global.ship_progress_target
-	
+	# model.create_trimesh_collision()
+	# var static_body = model.get_child(0)
 	pick_sphere.create_trimesh_collision()
-	var static_body = pick_sphere.get_child(0)
-	var collision_shape = static_body.get_child(0)
-	collision_shape.reparent(self)
+	var static_body = pick_sphere.get_node("PickSphere_col")
+	# var static_body = pick_sphere.get_child(0)
+	var temp_collision_shape = static_body.get_child(0)
+	collision_shape.set_shape(temp_collision_shape.get_shape())
+	collision_shape.position = to_local(temp_collision_shape.global_position)
+	static_body.remove_child(temp_collision_shape)
+	temp_collision_shape.queue_free()
+	# model.remove_child(static_body)
 	pick_sphere.remove_child(static_body)
 	static_body.queue_free()
 	
 	b_box.hide()
+	interact_label.hide()
 	
 	# this part needs updating when we use proper models
 	var dupe_mesh = model.mesh.duplicate()
@@ -93,49 +103,65 @@ func _ready():
 	
 	parts_count += 1
 	remaining_parts_count += 1
+	
+	Global.start_game.connect(init)
+
+func init():
+	target = ShipProgressTarget.instance
+	initialized = true
 
 func _physics_process(delta):
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() or not initialized:
 		return
 	
-	# var to_move: CharacterBody3D = self if picked_up else illusion_body
 	var to_moves = []
 	if picked_up:
 		to_moves.append(self)
 	if not has_reached_target:
 		to_moves.append(illusion_body)
-	if not to_moves:
-		return
-	if picked_up:
-		pickup_timer += delta
-	
-	target_position = target.global_position
-	target_rotation = target.get_quaternion()
-	
-	for to_move in to_moves:
-		if to_move == self:
-			if not has_reached_target:
-				# During initial pickup movement
-				var t = pickup_timer / initial_pickup_time
-				to_move.global_position = pos_at_pickup.lerp(target_position, t)
-				var dist = target_position.distance_to(to_move.global_position)
-				if dist < 0.1:
-					pick_up_reached()
-			else:
-				var direction = (target_position - global_position)
+	if to_moves:
+		if picked_up:
+			pickup_timer += delta
+		
+		target_position = target.global_position
+		target_rotation = target.get_quaternion()
+		
+		for to_move in to_moves:
+			if not to_move.is_inside_tree():
+				continue
+			if to_move == self:
+				if not has_reached_target:
+					# During initial pickup movement
+					var t = pickup_timer / initial_pickup_time
+					to_move.global_position = pos_at_pickup.lerp(target_position, t)
+					var dist = target_position.distance_to(to_move.global_position)
+					if dist < 0.1:
+						pick_up_reached()
+				else:
+					var direction = (target_position - global_position)
+					to_move.velocity = direction / follow_time
+					to_move.move_and_slide()
+			elif to_move == illusion_body:
+				var direction = (target_position - to_move.global_position)
 				to_move.velocity = direction / follow_time
 				to_move.move_and_slide()
-		elif to_move == illusion_body:
-			var direction = (target_position - to_move.global_position)
-			to_move.velocity = direction / follow_time
-			to_move.move_and_slide()
-			
-		to_move.global_rotation = target.global_rotation
-
+				
+			to_move.global_rotation = target.global_rotation
+	
+	if showing_interaction_label:
+		pick_sphere.look_at(pick_sphere.to_local(PlayerCamera.instance.global_position))
 
 func _input(event):
 	if Engine.is_editor_hint():
 		return
+	
+	if not event.is_pressed:
+		return
+	if not showing_interaction_label:
+		return
+	
+	if event is InputEventKey and event.keycode == KEY_E:
+		pick_up()
 
 func pick_up():
 	picked_up = true
@@ -155,3 +181,14 @@ func pick_up_reached():
 	remaining_parts_count -= 1
 	if remaining_parts_count == 0:
 		Global.all_parts_picked_up.emit()
+
+var showing_interaction_label = false
+
+func show_interact_hint():
+	pick_sphere.look_at(pick_sphere.to_local(PlayerCamera.instance.global_position))
+	interact_label.show()
+	showing_interaction_label = true
+
+func hide_interact_hint():
+	interact_label.hide()
+	showing_interaction_label = false
