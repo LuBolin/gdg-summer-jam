@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://o6xpxf2652sw"]
+[gd_scene load_steps=5 format=3 uid="uid://o6xpxf2652sw"]
 
 [ext_resource type="Script" path="res://progress_3d/ship_progress_target.gd" id="1_dtqvu"]
 
@@ -24,11 +24,7 @@ corner_detail = 5
 [sub_resource type="Theme" id="Theme_fbvt6"]
 Panel/styles/panel = SubResource("StyleBoxFlat_5nqjo")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_o0kbl"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8lo0i"]
-resource_local_to_scene = true
-atlas = SubResource("ViewportTexture_o0kbl")
+[sub_resource type="ViewportTexture" id="ViewportTexture_tlve0"]
 
 [node name="Target" type="Marker3D"]
 script = ExtResource("1_dtqvu")
@@ -66,11 +62,11 @@ size_flags_stretch_ratio = 4.0
 mouse_filter = 2
 theme = SubResource("Theme_fbvt6")
 
-[node name="ProgressCamAtlasTexture" type="TextureRect" parent="Control/VBoxContainer/Panel"]
+[node name="ProgressCamTexture" type="TextureRect" parent="Control/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_8lo0i")
+texture = SubResource("ViewportTexture_tlve0")
