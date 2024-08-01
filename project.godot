@@ -23,6 +23,10 @@ buses/default_bus_layout="res://misc/default_bus_layout.tres"
 
 Global="*res://misc/global.gd"
 
+[physics]
+
+3d/physics_engine="JoltPhysics3D"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

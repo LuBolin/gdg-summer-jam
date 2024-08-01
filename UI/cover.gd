@@ -12,10 +12,12 @@ func start_game():
 	start_btn.disabled = true
 	anim_player.play("FadeToNothing")
 	await anim_player.animation_finished
+	Global.start_game.emit()
 	hide()
 
 func enter_main_menu():
 	show()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	anim_player.play("FadeFromStarry")
 	await anim_player.animation_finished
 	start_btn.disabled = false

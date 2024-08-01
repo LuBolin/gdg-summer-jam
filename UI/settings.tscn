@@ -99,6 +99,49 @@ layout_mode = 2
 max_value = 1.0
 step = 0.01
 
+[node name="CamSensitivity" type="Label" parent="HBox/VBox/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+mouse_filter = 0
+text = "Camera Sensitivity"
+
+[node name="CamSensitivityHBox" type="HBoxContainer" parent="HBox/VBox/SettingsPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="Yaw" type="VBoxContainer" parent="HBox/VBox/SettingsPanel/Margin/VBox/CamSensitivityHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="YawSensitivity" type="Label" parent="HBox/VBox/SettingsPanel/Margin/VBox/CamSensitivityHBox/Yaw"]
+layout_mode = 2
+mouse_filter = 0
+text = "Horizontal"
+
+[node name="YawSensitivitySlider" type="HSlider" parent="HBox/VBox/SettingsPanel/Margin/VBox/CamSensitivityHBox/Yaw"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.05
+max_value = 0.5
+step = 0.01
+value = 0.05
+
+[node name="Pitch" type="VBoxContainer" parent="HBox/VBox/SettingsPanel/Margin/VBox/CamSensitivityHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PitchSensitivity" type="Label" parent="HBox/VBox/SettingsPanel/Margin/VBox/CamSensitivityHBox/Pitch"]
+layout_mode = 2
+mouse_filter = 0
+text = "Vertical
+"
+
+[node name="PitchSensitivitySlider" type="HSlider" parent="HBox/VBox/SettingsPanel/Margin/VBox/CamSensitivityHBox/Pitch"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.05
+max_value = 0.5
+step = 0.01
+value = 0.05
+
 [node name="Stretch" type="Control" parent="HBox/VBox/SettingsPanel/Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
