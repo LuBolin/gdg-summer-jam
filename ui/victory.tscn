@@ -1,0 +1,122 @@
+[gd_scene load_steps=9 format=3 uid="uid://pv5avlwpisfd"]
+
+[ext_resource type="Script" path="res://ui/victory.gd" id="1_qoypg"]
+[ext_resource type="Texture2D" uid="uid://d2splu2b730hs" path="res://resources/victory.png" id="2_28aud"]
+[ext_resource type="Shader" path="res://resources/canvas_starfield.gdshader" id="2_xihag"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ba742"]
+shader = ExtResource("2_xihag")
+shader_parameter/dimensions = Vector2(1024, 600)
+shader_parameter/small_stars = 50.0
+shader_parameter/small_stars_far_size = 0.5
+shader_parameter/small_stars_near_size = 1.0
+shader_parameter/large_stars = 8.0
+shader_parameter/large_stars_far_size = 0.4
+shader_parameter/large_stars_near_size = 0.6
+shader_parameter/far_stars_color = Color(0.384314, 0.180392, 0.160784, 1)
+shader_parameter/near_stars_color = Color(0.145098, 0.32549, 0.470588, 1)
+shader_parameter/base_scroll_speed = 0.01
+shader_parameter/additional_scroll_speed = 0.05
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vymua"]
+atlas = ExtResource("2_28aud")
+region = Rect2(0, 0, 133, 75)
+
+[sub_resource type="Animation" id="Animation_47n8b"]
+resource_name = "VictoryGif"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:current_frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 24.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4co2h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:current_frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jjsm4"]
+_data = {
+"RESET": SubResource("Animation_4co2h"),
+"VictoryGif": SubResource("Animation_47n8b")
+}
+
+[node name="Victory" type="Control"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_qoypg")
+
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ba742")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="GifRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("AtlasTexture_vymua")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jjsm4")
+}

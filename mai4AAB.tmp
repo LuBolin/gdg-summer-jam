@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwm5f3218uxk5"]
+
+[ext_resource type="PackedScene" uid="uid://b15d2oix81f2m" path="res://ui/cover.tscn" id="1_mupu1"]
+[ext_resource type="PackedScene" uid="uid://dsme7tymvsh5v" path="res://ui/settings.tscn" id="2_ox2ea"]
+[ext_resource type="AudioStream" uid="uid://dortwej8u3bcm" path="res://resources/menu-bgm.mp3" id="3_1bk7p"]
+[ext_resource type="PackedScene" uid="uid://pv5avlwpisfd" path="res://ui/victory.tscn" id="3_4louk"]
+[ext_resource type="PackedScene" uid="uid://dgecqjxsjatw1" path="res://player.tscn" id="4_jhnrw"]
+[ext_resource type="PackedScene" uid="uid://b1q7kel0tbmu8" path="res://grav_field.tscn" id="4_ogy1w"]
+
+[node name="Main" type="Node3D"]
+
+[node name="Cover" parent="." instance=ExtResource("1_mupu1")]
+
+[node name="Victory" parent="." instance=ExtResource("3_4louk")]
+
+[node name="Settings" parent="." instance=ExtResource("2_ox2ea")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_1bk7p")
+autoplay = true
+
+[node name="Player" parent="." instance=ExtResource("4_jhnrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439845, -0.0423991)
+
+[node name="GravField" parent="." instance=ExtResource("4_ogy1w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.343923, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.56914)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02054, 0)
+
+[node name="GravField2" parent="." instance=ExtResource("4_ogy1w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
