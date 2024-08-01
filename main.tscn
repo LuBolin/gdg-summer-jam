@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwm5f3218uxk5"]
+[gd_scene load_steps=8 format=3 uid="uid://bs3svin0exu0u"]
 
-[ext_resource type="PackedScene" uid="uid://b15d2oix81f2m" path="res://UI/cover.tscn" id="1_mupu1"]
-[ext_resource type="PackedScene" uid="uid://dsme7tymvsh5v" path="res://UI/settings.tscn" id="2_ox2ea"]
+[ext_resource type="PackedScene" uid="uid://b15d2oix81f2m" path="res://ui/cover.tscn" id="1_mupu1"]
+[ext_resource type="PackedScene" uid="uid://dsme7tymvsh5v" path="res://ui/settings.tscn" id="2_ox2ea"]
 [ext_resource type="AudioStream" uid="uid://dortwej8u3bcm" path="res://resources/menu-bgm.mp3" id="3_1bk7p"]
-[ext_resource type="PackedScene" uid="uid://dgecqjxsjatw1" path="res://player.tscn" id="4_jhnrw"]
+[ext_resource type="PackedScene" uid="uid://pv5avlwpisfd" path="res://ui/victory.tscn" id="3_02mtd"]
+[ext_resource type="PackedScene" uid="uid://dgecqjxsjatw1" path="res://player/player.tscn" id="4_jhnrw"]
 [ext_resource type="PackedScene" uid="uid://b1q7kel0tbmu8" path="res://grav_field.tscn" id="4_ogy1w"]
+[ext_resource type="PackedScene" uid="uid://b3v8x6xddq0qe" path="res://player/player_camera.tscn" id="7_cwocu"]
 
 [node name="Main" type="Node3D"]
 
@@ -12,12 +14,16 @@
 
 [node name="Settings" parent="." instance=ExtResource("2_ox2ea")]
 
+[node name="Victory" parent="." instance=ExtResource("3_02mtd")]
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_1bk7p")
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("4_jhnrw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.620264, 27.248, 0)
+
+[node name="PlayerCamera" parent="Player" instance=ExtResource("7_cwocu")]
 
 [node name="GravField" parent="." instance=ExtResource("4_ogy1w")]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -0.343923, 0, 0)

@@ -13,8 +13,18 @@ var camera: Camera3D
 @onready var bg_panel = $Control/VBoxContainer/Panel
 
 
+static var instance: ShipProgressTarget
+
+static func add_to_player():
+	if instance:
+		return
+	var target_prefab = load(
+		"res://progress_3d/ship_progress_target.tscn")
+	instance = target_prefab.instantiate()
+	PlayerCamera.instance.add_child(instance)
+
 func _ready():
-	camera = get_viewport().get_camera_3d()
+	camera = get_parent()
 	
 	v_stretch.set_stretch_ratio(1.0 - viewport_height_percentage)
 	bg_panel.set_stretch_ratio(viewport_height_percentage)
