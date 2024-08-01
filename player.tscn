@@ -19,6 +19,7 @@ size = Vector3(0.1, 0.1, 0.1)
 [node name="Player" type="CharacterBody3D"]
 axis_lock_angular_x = true
 axis_lock_angular_z = true
+motion_mode = 1
 script = ExtResource("1_3u122")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

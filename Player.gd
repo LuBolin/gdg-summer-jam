@@ -8,6 +8,7 @@ var yvel = 0
 
 var cog : Node3D
 
+
 func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -24,7 +25,10 @@ func _physics_process(delta):
 			#transform.basis = transform.basis.looking_at(-transform.basis.z, -gravity_vector)
 		
 	if not is_on_planet():
-		yvel -= delta
+		if cog:
+			yvel -= delta * cog.get_force()
+		else:
+			yvel -= delta 
 	else:
 		yvel = 0
 		if Input.is_action_just_pressed("ui_end"):
@@ -68,3 +72,11 @@ func is_on_planet():
 
 func set_cog(planet):
 	cog = planet
+	
+
+
+
+
+
+
+	
