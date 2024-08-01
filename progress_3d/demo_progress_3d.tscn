@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cdu4h7hecqrkq"]
 
-[ext_resource type="Script" path="res://progress_3d/camera_controls.gd" id="1_bplb2"]
-[ext_resource type="PackedScene" uid="uid://dqg1ybhx0mpqb" path="res://progress_3d/rocket_part.tscn" id="3_3u31i"]
+[ext_resource type="Script" path="res://progress_3d/camera_controls.gd" id="1_od0xg"]
+[ext_resource type="PackedScene" uid="uid://dqg1ybhx0mpqb" path="res://progress_3d/rocket_part.tscn" id="2_c30xa"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_0yd8b"]
 radius = 0.8
@@ -30,9 +30,9 @@ height = 1.5
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11)
 current = true
-script = ExtResource("1_bplb2")
+script = ExtResource("1_od0xg")
 
-[node name="Top" parent="." instance=ExtResource("3_3u31i")]
+[node name="Top" parent="." instance=ExtResource("2_c30xa")]
 pick_sphere_radius = 1.5
 pick_sphere_y = 3.0
 
@@ -41,7 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.975, 0)
 mesh = SubResource("SphereMesh_0yd8b")
 skeleton = NodePath("../../RocketRoot")
 
-[node name="Middle" parent="." instance=ExtResource("3_3u31i")]
+[node name="Middle" parent="." instance=ExtResource("2_c30xa")]
 pick_sphere_y = 0.5
 
 [node name="Model" type="MeshInstance3D" parent="Middle"]
@@ -49,7 +49,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("CylinderMesh_235vj")
 skeleton = NodePath("../../RocketRoot")
 
-[node name="Middle2" parent="." instance=ExtResource("3_3u31i")]
+[node name="Middle2" parent="." instance=ExtResource("2_c30xa")]
 pick_sphere_radius = 1.25
 pick_sphere_y = -1.5
 
@@ -58,7 +58,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.625, 0)
 mesh = SubResource("CylinderMesh_xvngd")
 skeleton = NodePath("../../RocketRoot")
 
-[node name="Bottom" parent="." instance=ExtResource("3_3u31i")]
+[node name="Bottom" parent="." instance=ExtResource("2_c30xa")]
 pick_sphere_y = -3.0
 
 [node name="Model" type="MeshInstance3D" parent="Bottom"]
