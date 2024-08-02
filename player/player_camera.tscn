@@ -20,13 +20,12 @@ shape = SubResource("SphereShape3D_e47yl")
 spring_length = 2.0
 
 [node name="PlayerCamera" type="Camera3D" parent="CamYaw/CamPitch/SpringArm"]
-cull_mask = 1048574
 current = true
 
 [node name="Target" parent="CamYaw/CamPitch/SpringArm/PlayerCamera" instance=ExtResource("2_3nvlj")]
 
 [node name="InteractRaycast" type="RayCast3D" parent="CamYaw/CamPitch/SpringArm/PlayerCamera"]
-target_position = Vector3(0, 0, -10)
+target_position = Vector3(0, 0, -15)
 collision_mask = 5
 debug_shape_custom_color = Color(1, 1, 0.0470588, 0.384314)
 debug_shape_thickness = 1
@@ -53,10 +52,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -16.0
-offset_right = 4.0
-offset_bottom = 16.0
+offset_left = -2.0
+offset_top = -12.0
+offset_right = 2.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -67,10 +66,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -4.0
-offset_right = 16.0
-offset_bottom = 4.0
+offset_left = -12.0
+offset_top = -2.0
+offset_right = 12.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 
