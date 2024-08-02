@@ -39,13 +39,13 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_gai80")
 show_bbox = true
-self_destruct = null
 
 [node name="PickSphere" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_pjlsh")
 skeleton = NodePath("")
 
 [node name="InteractLabel" type="Label3D" parent="PickSphere"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 pixel_size = 0.02
 billboard = 1
 texture_filter = 0

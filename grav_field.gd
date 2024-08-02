@@ -1,8 +1,9 @@
 extends Area3D
 
 @export var force = 5
-@export var planet_field_ratio = 0.5
+@export var field_scale = 2
 @export var rot_period = 40 #seconds it takes to make a full rotation on its pole
+
 
 var rotation_axis = Vector3(1, 1, 0).normalized()
 
@@ -10,15 +11,16 @@ var rotation_axis = Vector3(1, 1, 0).normalized()
 func _ready():
 	#force set scale upon ready
 	$CollisionShape3D.scale = $".".scale
-	$PlanetRigidBody/CollisionShape3D.scale = $".".scale * planet_field_ratio
-	$PlanetRigidBody/MeshInstance3D.scale = $".".scale * planet_field_ratio
+	
+	#$PlanetRigidBody/CollisionShape3D.scale = $".".scale * planet_field_ratio
+	$PlanetRigidBody/MeshInstance3D.scale = $".".scale
 	self.scale = Vector3(1,1,1)
 	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	#planet_rotation(delta) #uncomment to enable daynight cycle
+	planet_rotation(delta) #uncomment to enable daynight cycle
 	position.x += 0.3 * delta #change accordingly
 	
 	var areas = get_overlapping_bodies()

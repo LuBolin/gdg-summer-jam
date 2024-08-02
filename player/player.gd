@@ -2,8 +2,8 @@ class_name Player
 extends CharacterBody3D
 
 
-const SPEED = 10.0
-const JUMP_VELOCITY = 5.5
+const SPEED = 5.0
+const JUMP_VELOCITY = 5
 const turn_rate = 30
 var yvel = 0
 
@@ -14,25 +14,18 @@ func _physics_process(delta):
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction = (Vector3(-input_dir.x, 0, input_dir.y)).normalized()
-	#print(direction) #up z -1, left x -1
 	
 	if cog:
-		var gravity_vector = cog.position - position
-		#print(position)
-		#print(gravity_vector)
-		if not gravity_vector.normalized().is_equal_approx(transform.basis.y):
-			var new_basis = Basis(-gravity_vector.cross(transform.basis.z).normalized(), -gravity_vector.normalized(), transform.basis.z).orthonormalized()
-			transform.basis = new_basis
 		
-	if not is_on_planet():
-		if cog:
-			yvel -= delta * cog.get_force()
+		if not is_on_planet():
+			if cog:
+				yvel -= delta * cog.get_force()
+			else:
+				yvel -= delta 
 		else:
-			yvel -= delta 
-	else:
-		yvel = 0
-		if Input.is_action_just_pressed("ui_end"):
-			yvel = JUMP_VELOCITY
+			yvel = 0
+			if Input.is_action_just_pressed("ui_end"):
+				yvel = JUMP_VELOCITY
 	#print(basis)
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -52,7 +45,7 @@ func get_velocity_basis(vector):
 func is_on_planet():
 	if cog == null or $RayCast3D.get_collider() == null:
 		return false
-	return $RayCast3D.get_collider().get_parent() == cog
+	return $RayCast3D.get_collider() == cog
 
 func apply_planet_rotation(planet, axis, rot, tl, time):
 	if not is_on_planet():
@@ -61,9 +54,14 @@ func apply_planet_rotation(planet, axis, rot, tl, time):
 	var length = vector.length()
 	vector = vector.rotated(axis, (2*PI)/(rot))
 	velocity = (vector - (global_position - planet.global_position))
-	print(velocity)
 	move_and_slide()
 
 func set_cog(planet):
-	cog = planet
-	
+	if planet == null:
+		cog = planet
+		return true
+	if cog == null:
+		yvel = 0
+		cog = planet
+		return true
+	return false
