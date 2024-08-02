@@ -4,6 +4,8 @@ extends Area3D
 @export var planet_field_ratio = 0.5
 @export var rot_period = 40 #seconds it takes to make a full rotation on its pole
 
+var rotation_axis = Vector3(1, 1, 0).normalized()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#force set scale upon ready
@@ -16,14 +18,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	#planet_rotation(delta) #uncomment to enable daynight cycle
+	planet_rotation(delta) #uncomment to enable daynight cycle
 	position.x += 0.3 * delta #change accordingly
 	
 	var areas = get_overlapping_bodies()
 	for area in areas:
-		if area is CharacterBody3D:
+		if area is Player:
 			area.set_cog(self)
-			area.reparent(self) #this does not look very safe
+			area.global_position.x += 0.3 * delta
+			var translation = Vector3(0.3, 0, 0)
+			area.apply_planet_rotation(self, rotation_axis, rot_period, translation, delta)
+			#area.reparent(self) #this does not look very safe
 			
 func get_force():
 	return force
@@ -31,7 +36,7 @@ func get_force():
 	
 func planet_rotation(time): #tries to rotate based on rot_period
 	if rot_period:
-		rotate(basis.y.normalized(),  (2*PI)/(rot_period/time))
+		$PlanetRigidBody.rotate(rotation_axis,  (2*PI)/(rot_period/time))
 	else:
 		pass
 

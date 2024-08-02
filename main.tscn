@@ -9,15 +9,17 @@
 [node name="Main" type="Node3D"]
 
 [node name="Cover" parent="." instance=ExtResource("1_mupu1")]
+visible = false
 
 [node name="Settings" parent="." instance=ExtResource("2_ox2ea")]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_1bk7p")
 autoplay = true
 
 [node name="Player" parent="." instance=ExtResource("4_jhnrw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.620264, 27.248, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.620264, 9.09381, 0)
 
 [node name="GravField" parent="." instance=ExtResource("4_ogy1w")]
 transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -0.343923, 0, 0)
@@ -25,11 +27,11 @@ force = 8
 planet_field_ratio = 0.4
 rot_period = 100
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 43.6593)
-
 [node name="GravField2" parent="." instance=ExtResource("4_ogy1w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.793, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.7034)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.992219, 0.124501, 0, -0.124501, 0.992219, -0.361372, 4.34168, 16.5233)

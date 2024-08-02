@@ -1,8 +1,9 @@
+class_name Player
 extends CharacterBody3D
 
 
-const SPEED = 1.0
-const JUMP_VELOCITY = 1.5
+const SPEED = 10.0
+const JUMP_VELOCITY = 5.5
 const turn_rate = 30
 var yvel = 0
 
@@ -18,11 +19,11 @@ func _physics_process(delta):
 	
 	if cog:
 		var gravity_vector = cog.position - position
+		#print(position)
+		#print(gravity_vector)
 		if not gravity_vector.normalized().is_equal_approx(transform.basis.y):
-			var new_basis = Basis(gravity_vector.cross(transform.basis.z).normalized(), -gravity_vector.normalized(), transform.basis.z).orthonormalized()
+			var new_basis = Basis(-gravity_vector.cross(transform.basis.z).normalized(), -gravity_vector.normalized(), transform.basis.z).orthonormalized()
 			transform.basis = new_basis
-			#transform.basis = transform.basis.slerp(new_basis, 10).orthonormalized()
-			#transform.basis = transform.basis.looking_at(-transform.basis.z, -gravity_vector)
 		
 	if not is_on_planet():
 		if cog:
@@ -41,25 +42,9 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	velocity = get_velocity_basis(Vector3(velocity.x, yvel, velocity.z))
+	#velocity = Vector3(0, yvel, 0)
 	move_and_slide()
 	
-	#if cog:
-		##gravity thing here
-		#var gravity_vector = cog.position - position
-		#var cross = gravity_vector.cross(up_vector).normalized()
-		#var angle = PI - up_vector.signed_angle_to(gravity_vector, cross)
-		#up_vector = -gravity_vector.normalized()
-		#front_vector = (front_vector - (front_vector.dot(up_vector)) * up_vector.normalized()).normalized()
-		#if not is_on_planet():
-			#velocity += (cog.position - position).normalized() * 5 * delta
-	#if direction:
-		#front_vector = front_vector.rotated(up_vector, turn_rate * delta * direction.x)
-	#print(is_on_planet())
-	#$vectorup.look_at((up_vector) * 10)
-	#look_at(front_vector + position)
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-	#move_and_slide()
-	## Handle jump.
 
 func get_velocity_basis(vector):
 	return Vector3(vector.x * transform.basis.x + vector.y * transform.basis.y + vector.z * transform.basis.z)
@@ -70,13 +55,16 @@ func is_on_planet():
 		return false
 	return $RayCast3D.get_collider().get_parent() == cog
 
+func apply_planet_rotation(planet, axis, rot, tl, time):
+	if not is_on_planet():
+		return
+	var vector = global_position - planet.global_position
+	var length = vector.length()
+	vector = vector.rotated(axis, (2*PI)/(rot))
+	velocity = (vector - (global_position - planet.global_position))
+	print(velocity)
+	move_and_slide()
+
 func set_cog(planet):
 	cog = planet
-	
-
-
-
-
-
-
 	
