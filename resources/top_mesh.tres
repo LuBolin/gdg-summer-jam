@@ -1,0 +1,7 @@
+[gd_resource type="SphereMesh" format=3 uid="uid://bksoc03rxvutg"]
+
+[resource]
+resource_local_to_scene = true
+radius = 0.8
+height = 2.0
+is_hemisphere = true

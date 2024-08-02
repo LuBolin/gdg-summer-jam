@@ -18,7 +18,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	planet_rotation(delta) #uncomment to enable daynight cycle
+	#planet_rotation(delta) #uncomment to enable daynight cycle
 	position.x += 0.3 * delta #change accordingly
 	
 	var areas = get_overlapping_bodies()

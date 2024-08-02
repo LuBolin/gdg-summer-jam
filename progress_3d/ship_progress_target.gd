@@ -12,9 +12,19 @@ var camera: Camera3D
 @onready var v_stretch = $Control/VBoxContainer/Stretch
 @onready var bg_panel = $Control/VBoxContainer/Panel
 
+@onready var progress_cam_atlas_texture = $Control/VBoxContainer/Panel/ProgressCamAtlasTexture
+
+@onready var ready_label = $Control/VBoxContainer/Panel/ReadyLabelMargin/ReadyLabel
+
+var progress_vp: SubViewport
+var progress_cam: Camera3D
+
+static var instance: ShipProgressTarget
 
 func _ready():
-	camera = get_viewport().get_camera_3d()
+	instance = self
+	
+	camera = get_parent()
 	
 	v_stretch.set_stretch_ratio(1.0 - viewport_height_percentage)
 	bg_panel.set_stretch_ratio(viewport_height_percentage)
@@ -24,7 +34,35 @@ func _ready():
 	size.x = size.y / object_height * object_width
 	bg_panel.set_custom_minimum_size(size)
 	
+	progress_vp = camera.get_node("ProgressViewport")
+	progress_cam = progress_vp.get_child(0)
+	
+	# progress_vp.set_size(size)
+	progress_vp.set_size(get_viewport().get_size())
+	
+	var node_path: NodePath = progress_vp.get_path()
+	var progress_cam_atlas: AtlasTexture = \
+		progress_cam_atlas_texture.get_texture()
+	
+	#var progress_cam_viewport: ViewportTexture = ViewportTexture.new()
+	#progress_cam_atlas.set_atlas(progress_cam_viewport)
+	var progress_cam_viewport: ViewportTexture = \
+		progress_cam_atlas.get_atlas()
+	
+	progress_cam_viewport.set_viewport_path_in_scene(node_path)
+	
+	var origin = get_viewport().get_size() - Vector2i(size)
+	var region = Rect2(origin, size)
+	progress_cam_atlas.set_region(region)
+	
 	sync_with_camera()
+	
+	var theme: Theme = bg_panel.get_theme().duplicate()
+	# Godot wttf is this theme.get_stylebox syntax
+	var sb_flat: StyleBoxFlat = theme.get_stylebox("panel", "Panel")
+	var alpha = sb_flat.border_color.a
+	sb_flat.border_color = Color('41cccc4c')
+	bg_panel.set_theme(theme)
 	
 	Global.all_parts_picked_up.connect(all_parts_picked_up)
 
@@ -52,7 +90,7 @@ func sync_with_camera():
 	var world_position = camera.global_transform.origin + position_offset
 	
 	global_transform.origin = world_position
-
+	
 func all_parts_picked_up():
 	var theme: Theme = bg_panel.get_theme().duplicate()
 	# Godot wttf is this theme.get_stylebox syntax
@@ -60,3 +98,4 @@ func all_parts_picked_up():
 	var alpha = sb_flat.border_color.a
 	sb_flat.border_color = Color(Color.LIME_GREEN, alpha)
 	bg_panel.set_theme(theme)
+	ready_label.show()

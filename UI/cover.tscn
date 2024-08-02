@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/cover.gd" id="1_b8jfu"]
 [ext_resource type="Shader" path="res://resources/canvas_starfield.gdshader" id="1_jite5"]
-[ext_resource type="Texture2D" uid="uid://tf0nv163ejfv" path="res://resources/splash_name.png" id="2_li0o8"]
+[ext_resource type="Texture2D" uid="uid://b8tujvevgr477" path="res://resources/splash_name.png" id="2_li0o8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jey1n"]
 shader = ExtResource("1_jite5")
