@@ -34,16 +34,7 @@ size = Vector3(4, 1, 10)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.2209, 2.5, -1.85)
 size = Vector3(1, 4, 20)
 
-
-[node name="Top" parent="." instance=ExtResource("3_iwdau")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -7)
-pick_sphere_radius = 1.5
-pick_sphere_y = 3.0
-self_destruct = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Top"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.975, 0)
-mesh = ExtResource("4_2od57")
+[node name="ModelSample" type="Node3D" parent="."]
 
 [node name="Mid1" parent="." instance=ExtResource("3_iwdau")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 3, 0)
