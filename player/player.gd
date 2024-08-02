@@ -9,23 +9,28 @@ var yvel = 0
 
 var cog : Node3D
 
+static var instance: Player
+
+var jump_strength = 0
+
+func _ready():
+	instance = self
+
 func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction = (Vector3(-input_dir.x, 0, input_dir.y)).normalized()
+	# As good practice, you should replace UI actions with custom gameplay actions.]
+	
+	var input_dir = Input.get_vector("ui_right", "ui_left", "ui_down", "ui_up")
+	var direction = (Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if cog:
-		
 		if not is_on_planet():
 			if cog:
 				yvel -= delta * cog.get_force()
 			else:
 				yvel -= delta 
 		else:
-			yvel = 0
-			if Input.is_action_just_pressed("ui_end"):
-				yvel = JUMP_VELOCITY
+			pass
 	#print(basis)
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -36,7 +41,12 @@ func _physics_process(delta):
 	velocity = get_velocity_basis(Vector3(velocity.x, yvel, velocity.z))
 	#velocity = Vector3(0, yvel, 0)
 	move_and_slide()
-	
+
+func jump(strength, exit = false):
+	yvel = strength
+	if exit:
+		if cog and cog is Planet:
+			cog.extrude_body(self)
 
 func get_velocity_basis(vector):
 	return Vector3(vector.x * transform.basis.x + vector.y * transform.basis.y + vector.z * transform.basis.z)

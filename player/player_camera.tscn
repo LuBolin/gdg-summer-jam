@@ -45,7 +45,6 @@ shape = SubResource("SphereShape3D_e47yl")
 spring_length = 2.0
 
 [node name="PlayerCamera" type="Camera3D" parent="CamYaw/CamPitch/SpringArm"]
-current = true
 
 [node name="Target" parent="CamYaw/CamPitch/SpringArm/PlayerCamera" instance=ExtResource("2_3nvlj")]
 
@@ -104,6 +103,7 @@ transparent_bg = true
 [node name="ProgressCam" type="Camera3D" parent="CamYaw/CamPitch/SpringArm/PlayerCamera/ProgressViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 cull_mask = 1047556
+current = true
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CamYaw/CamPitch/SpringArm/PlayerCamera"]
 remote_path = NodePath("../ProgressViewport/ProgressCam")
