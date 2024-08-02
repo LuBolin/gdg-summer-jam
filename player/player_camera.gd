@@ -32,10 +32,10 @@ var pitch_min: float = -65
 var current_interacter: Node3D
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
+	
 	instance = self
-	Global.start_game.connect(start_game)
-
-func start_game():
 	camera.set_current(true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 

@@ -10,7 +10,7 @@ var target_position: Vector3
 var target_rotation: Quaternion
 
 var initial_pickup_time: float = 1.0  # Time to reach target when first picked up
-var follow_time: float = 0.05  # Time to reach target during normal following
+var follow_time: float = 0.03  # Time to reach target during normal following
 var current_move_time: float
 var pickup_timer: float = 0.0
 
@@ -28,8 +28,6 @@ static var remaining_parts_count: int = 0
 		var sphere: SphereMesh = ps.get_mesh()
 		sphere.radius = v
 		sphere.height = 2 * v
-		var i_label = ps.get_node("InteractLabel")
-		i_label.position = Vector3(0, 0, v)
 @export var pick_sphere_color: Color = Color('0000ff61'):
 	set(v):
 		pick_sphere_color = v
@@ -50,6 +48,8 @@ static var remaining_parts_count: int = 0
 			return
 		bbox.set_visible(v)
 
+@export var self_destruct: bool = false
+
 @onready var pick_sphere: MeshInstance3D = $PickSphere
 @onready var b_box: Node3D = $BBox
 @onready var collision_shape: CollisionShape3D = $CollisionShape
@@ -62,6 +62,24 @@ var model: MeshInstance3D
 var initialized = false
 
 func _ready():
+	if self_destruct:
+		queue_free()
+		return
+	init_model_and_mesh()
+	
+	parts_count += 1
+	remaining_parts_count += 1
+	
+	# wait for ShipProgressTarget to be ready
+	await get_tree().process_frame
+	
+	interact_label.global_position = \
+		pick_sphere.global_position - Vector3(0, 0, pick_sphere_radius)
+	
+	target = ShipProgressTarget.instance
+	initialized = true
+
+func init_model_and_mesh():
 	for c in get_children():
 		if not c is MeshInstance3D:
 			continue
@@ -72,10 +90,7 @@ func _ready():
 			break
 	assert(model)
 	assert(pick_sphere)
-	model.set_layer_mask_value(3, true)
 	
-	# model.create_trimesh_collision()
-	# var static_body = model.get_child(0)
 	pick_sphere.create_trimesh_collision()
 	var static_body = pick_sphere.get_node("PickSphere_col")
 	# var static_body = pick_sphere.get_child(0)
@@ -88,27 +103,17 @@ func _ready():
 	pick_sphere.remove_child(static_body)
 	static_body.queue_free()
 	
-	b_box.hide()
-	interact_label.hide()
-	
-	# this part needs updating when we use proper models
 	var dupe_mesh = model.mesh.duplicate()
 	var mat = StandardMaterial3D.new()
 	# Transparency TRANSPARENCY_ALPHA = 1
 	mat.set_transparency(1)
-	mat.albedo_color = Color(Color.DARK_BLUE, 0.75)
+	mat.albedo_color = Color(Color.STEEL_BLUE, 0.75)
 	dupe_mesh.set_material(mat)
 	illusion_mesh.mesh = dupe_mesh
 	illusion_mesh.set_position(model.get_position())
 	
-	parts_count += 1
-	remaining_parts_count += 1
-	
-	Global.start_game.connect(init)
-
-func init():
-	target = ShipProgressTarget.instance
-	initialized = true
+	b_box.hide()
+	interact_label.hide()
 
 func _physics_process(delta):
 	if Engine.is_editor_hint() or not initialized:
@@ -149,7 +154,8 @@ func _physics_process(delta):
 			to_move.global_rotation = target.global_rotation
 	
 	if showing_interaction_label:
-		pick_sphere.look_at(pick_sphere.to_local(PlayerCamera.instance.global_position))
+		pick_sphere.look_at(\
+			PlayerCamera.instance.global_transform.origin, Vector3.UP)
 
 func _input(event):
 	if Engine.is_editor_hint():
@@ -157,6 +163,7 @@ func _input(event):
 	
 	if not event.is_pressed:
 		return
+	
 	if not showing_interaction_label:
 		return
 	
@@ -165,6 +172,7 @@ func _input(event):
 
 func pick_up():
 	picked_up = true
+	model.set_layer_mask_value(3, true)
 	set_collision_layer(0)
 	set_collision_mask(0)
 	pickup_timer = 0.0
@@ -173,6 +181,7 @@ func pick_up():
 
 func pick_up_reached():
 	has_reached_target = true
+	model.set_layer_mask_value(1, true)
 	for c in illusion_body.get_children():
 		illusion_body.remove_child(c)
 		c.queue_free()
@@ -185,6 +194,8 @@ func pick_up_reached():
 var showing_interaction_label = false
 
 func show_interact_hint():
+	if not initialized:
+		return
 	pick_sphere.look_at(pick_sphere.to_local(PlayerCamera.instance.global_position))
 	interact_label.show()
 	showing_interaction_label = true
