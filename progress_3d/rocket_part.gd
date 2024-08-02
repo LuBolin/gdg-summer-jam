@@ -161,7 +161,7 @@ func _input(event):
 	if Engine.is_editor_hint():
 		return
 	
-	if not event.is_pressed:
+	if not event.is_pressed():
 		return
 	
 	if not showing_interaction_label:

@@ -62,8 +62,6 @@ mesh = SubResource("BoxMesh_5fcll")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DummyPlayer"]
 shape = SubResource("BoxShape3D_7dib6")
 
-[node name="ModelSample" type="Node3D" parent="."]
-
 [node name="Top" parent="." instance=ExtResource("3_iwdau")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -7)
 pick_sphere_radius = 1.5

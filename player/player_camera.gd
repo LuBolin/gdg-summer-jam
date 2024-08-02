@@ -6,6 +6,8 @@ extends Node3D
 @onready var pitch_node = $CamYaw/CamPitch
 @onready var camera: Camera3D = $CamYaw/CamPitch/SpringArm/PlayerCamera
 @onready var interact_raycast: RayCast3D = $CamYaw/CamPitch/SpringArm/PlayerCamera/InteractRaycast
+@onready var jump_dirn_indicator = %JumpDirnIndicator
+
 
 @export var y_offset: float = 2.0:
 	set(v):
