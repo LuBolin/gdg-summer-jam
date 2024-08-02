@@ -1,12 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1q7kel0tbmu8"]
+[gd_scene load_steps=7 format=3 uid="uid://b1q7kel0tbmu8"]
 
 [ext_resource type="Script" path="res://grav_field.gd" id="1_n82oy"]
+[ext_resource type="Texture2D" uid="uid://d2splu2b730hs" path="res://resources/victory.png" id="2_s2esi"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_t8ece"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_v6tbd"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tmwse"]
+albedo_texture = ExtResource("2_s2esi")
+
 [sub_resource type="SphereMesh" id="SphereMesh_xccbc"]
+material = SubResource("StandardMaterial3D_tmwse")
 
 [node name="GravField" type="Area3D" groups=["gravity_field"]]
 script = ExtResource("1_n82oy")
@@ -14,9 +19,7 @@ script = ExtResource("1_n82oy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_t8ece")
 
-[node name="PlanetRigidBody" type="RigidBody3D" parent="."]
-mass = 5e+06
-gravity_scale = 0.0
+[node name="PlanetRigidBody" type="CharacterBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlanetRigidBody"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

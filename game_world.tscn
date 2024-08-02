@@ -1,14 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://wtkoetjws1fl"]
+[gd_scene load_steps=9 format=3 uid="uid://wtkoetjws1fl"]
 
-[ext_resource type="PackedScene" uid="uid://dgecqjxsjatw1" path="res://player/player.tscn" id="1_p0w5c"]
-[ext_resource type="PackedScene" uid="uid://b1q7kel0tbmu8" path="res://grav_field.tscn" id="2_r8anh"]
+[ext_resource type="PackedScene" uid="uid://c60xvcngoqawb" path="res://player.tscn" id="1_p0w5c"]
 [ext_resource type="PackedScene" uid="uid://dqg1ybhx0mpqb" path="res://progress_3d/rocket_part.tscn" id="3_iwdau"]
 [ext_resource type="SphereMesh" uid="uid://bksoc03rxvutg" path="res://resources/top_mesh.tres" id="4_2od57"]
+[ext_resource type="PackedScene" uid="uid://cgwg72e8h87xs" path="res://planet/planet.tscn" id="5_kuklf"]
 [ext_resource type="PackedScene" uid="uid://b3v8x6xddq0qe" path="res://player/player_camera.tscn" id="5_yayjq"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_5fcll"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7dib6"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_0hfbx"]
 top_radius = 0.8
@@ -27,19 +23,6 @@ height = 1.5
 
 [node name="GameWorld" type="Node3D"]
 
-[node name="Player" parent="." instance=ExtResource("1_p0w5c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.620264, 9.248, 0)
-visible = false
-
-[node name="GravField" parent="." instance=ExtResource("2_r8anh")]
-transform = Transform3D(30, 0, 0, 0, 30, 0, 0, 0, 30, -0.343923, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 43.6593)
-
-[node name="GravField2" parent="." instance=ExtResource("2_r8anh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.793, 0, 0)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 13, 11.7034)
 
@@ -51,31 +34,11 @@ size = Vector3(4, 1, 10)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.2209, 2.5, -1.85)
 size = Vector3(1, 4, 20)
 
-[node name="DummyPlayer" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.6443, 1, 0)
-
-[node name="PlayerCamera" parent="DummyPlayer" instance=ExtResource("5_yayjq")]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="DummyPlayer"]
-mesh = SubResource("BoxMesh_5fcll")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DummyPlayer"]
-shape = SubResource("BoxShape3D_7dib6")
-
-[node name="Top" parent="." instance=ExtResource("3_iwdau")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -7)
-pick_sphere_radius = 1.5
-pick_sphere_y = 3.0
-self_destruct = false
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Top"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.975, 0)
-mesh = ExtResource("4_2od57")
+[node name="ModelSample" type="Node3D" parent="."]
 
 [node name="Mid1" parent="." instance=ExtResource("3_iwdau")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 3, 0)
 pick_sphere_y = 0.5
-self_destruct = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mid1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -85,7 +48,6 @@ mesh = SubResource("CylinderMesh_0hfbx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.9246, 6.07799, 5.97832)
 pick_sphere_radius = 1.25
 pick_sphere_y = -1.5
-self_destruct = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mid2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.625, 0)
@@ -94,8 +56,27 @@ mesh = SubResource("CylinderMesh_xtmv0")
 [node name="Btm" parent="." instance=ExtResource("3_iwdau")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.717, 8.82078, -8.12487)
 pick_sphere_y = -3.0
-self_destruct = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Btm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 mesh = SubResource("CylinderMesh_6hwo6")
+
+[node name="Player" parent="." instance=ExtResource("1_p0w5c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.41097, 2.15115, 1.0857)
+
+[node name="PlayerCamera" parent="Player" instance=ExtResource("5_yayjq")]
+
+[node name="Planet" parent="." instance=ExtResource("5_kuklf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64819, 3.6617, 3.33722)
+field_planet_ratio = 5.0
+orbit_period = 100
+orbit_radius = 20
+
+[node name="Top" parent="Planet" instance=ExtResource("3_iwdau")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.706598, -4.22299, -6.81465)
+pick_sphere_radius = 1.5
+pick_sphere_y = 3.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Planet/Top"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.975, 0)
+mesh = ExtResource("4_2od57")
