@@ -39,7 +39,7 @@ func update_object(object, position_change):
 	#adjust position
 	object.global_position += position_change
 	#adjust basis rotation
-	var gravity_vector = position - object.position
+	var gravity_vector = global_position - object.global_position
 	if not gravity_vector.normalized().is_equal_approx(object.transform.basis.y):
 		var new_basis = Basis(-gravity_vector.cross(object.transform.basis.z).normalized(), -gravity_vector.normalized(), object.transform.basis.z).orthonormalized()
 		object.transform.basis = new_basis
