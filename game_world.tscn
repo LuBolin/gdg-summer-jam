@@ -1,16 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://wtkoetjws1fl"]
+[gd_scene load_steps=11 format=3 uid="uid://wtkoetjws1fl"]
 
 [ext_resource type="PackedScene" uid="uid://dgecqjxsjatw1" path="res://player/player.tscn" id="1_p0w5c"]
 [ext_resource type="PackedScene" uid="uid://b1q7kel0tbmu8" path="res://grav_field.tscn" id="2_r8anh"]
 [ext_resource type="PackedScene" uid="uid://dqg1ybhx0mpqb" path="res://progress_3d/rocket_part.tscn" id="3_iwdau"]
 [ext_resource type="SphereMesh" uid="uid://bksoc03rxvutg" path="res://resources/top_mesh.tres" id="4_2od57"]
 [ext_resource type="PackedScene" uid="uid://b3v8x6xddq0qe" path="res://player/player_camera.tscn" id="5_yayjq"]
-
-[sub_resource type="GDScript" id="GDScript_ke3s3"]
-script/source = "class_name GameWorld
-extends Node3D
-
-"
 
 [sub_resource type="BoxMesh" id="BoxMesh_5fcll"]
 
@@ -32,7 +26,6 @@ bottom_radius = 1.5
 height = 1.5
 
 [node name="GameWorld" type="Node3D"]
-script = SubResource("GDScript_ke3s3")
 
 [node name="Player" parent="." instance=ExtResource("1_p0w5c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.620264, 9.248, 0)
