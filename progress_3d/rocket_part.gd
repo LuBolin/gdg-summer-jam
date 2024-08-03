@@ -142,6 +142,8 @@ func init_model_and_mesh():
 func _physics_process(delta):
 	if Engine.is_editor_hint() or not initialized:
 		return
+	if not target:
+		return
 	
 	var to_moves = []
 	if picked_up:
@@ -167,13 +169,15 @@ func _physics_process(delta):
 					if dist < 0.1:
 						pick_up_reached()
 				else:
-					var direction = (target_position - global_position)
-					to_move.velocity = direction / follow_time
-					to_move.move_and_slide()
+					#var direction = (target_position - global_position)
+					#to_move.velocity = direction / follow_time
+					#to_move.move_and_slide()
+					to_move.global_position = target_position
 			elif to_move == illusion_body:
-				var direction = (target_position - to_move.global_position)
-				to_move.velocity = direction / follow_time
-				to_move.move_and_slide()
+				#var direction = (target_position - to_move.global_position)
+				#to_move.velocity = direction / follow_time
+				#to_move.move_and_slide()
+				to_move.global_position = target_position
 				
 			to_move.global_rotation = target.global_rotation
 	

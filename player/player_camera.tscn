@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3v8x6xddq0qe"]
+[gd_scene load_steps=10 format=3 uid="uid://b3v8x6xddq0qe"]
 
 [ext_resource type="Script" path="res://player/player_camera.gd" id="1_2r2xx"]
 [ext_resource type="PackedScene" uid="uid://o6xpxf2652sw" path="res://progress_3d/ship_progress_target.tscn" id="2_3nvlj"]
@@ -16,6 +16,66 @@ height = 0.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_e47yl"]
 radius = 0.05
+
+[sub_resource type="Animation" id="Animation_rvnvb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Death:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Death:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8jhgj"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Death:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0.0196078, 0.0196078, 0.0196078, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Death:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7krr"]
+_data = {
+"RESET": SubResource("Animation_rvnvb"),
+"die": SubResource("Animation_8jhgj")
+}
 
 [node name="PlayerCamera" type="Node3D"]
 script = ExtResource("1_2r2xx")
@@ -109,3 +169,16 @@ current = true
 remote_path = NodePath("../ProgressViewport/ProgressCam")
 
 [node name="JumpHud" parent="." instance=ExtResource("3_6pyb7")]
+
+[node name="Death" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="DeathAnimPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o7krr")
+}

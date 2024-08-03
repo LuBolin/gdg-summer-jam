@@ -5,11 +5,11 @@ extends Control
 var held: bool = false
 var time_held: float = 0
 
-var time_to_get_to_slow_down = 0.6
-var time_to_get_to_max = 1.2
+var time_to_get_to_slow_down = 1.0
+var time_to_get_to_max = 3.0
 var min_strength = 1
-var slow_down_range = 3
-var max_strength = 7
+var slow_down_range = 6
+var max_strength = 8
 
 func _ready():
 	jump_bar.set_min(min_strength)
@@ -22,6 +22,10 @@ func _input(event):
 		held = event.is_pressed()
 		if not held:
 			jump()
+	if event.keycode == KEY_SHIFT and event.is_pressed():
+		if held:
+			held = false
+			time_held = 0
 
 func _process(delta):
 	if held:
@@ -55,4 +59,6 @@ func jump():
 	var p: Player = Player.instance
 	print("Jump with strength: ", strength)
 	var exit = strength == max_strength
+	if exit:
+		strength *= 2
 	p.jump(strength, exit)

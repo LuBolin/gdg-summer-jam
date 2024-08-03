@@ -7,6 +7,8 @@ extends Node3D
 @onready var camera: Camera3D = $CamYaw/CamPitch/SpringArm/PlayerCamera
 @onready var interact_raycast: RayCast3D = $CamYaw/CamPitch/SpringArm/PlayerCamera/InteractRaycast
 @onready var jump_dirn_indicator: CPUParticles3D = %JumpDirnIndicator
+@onready var death = $Death
+@onready var death_anim_player = $DeathAnimPlayer
 
 
 @export var y_offset: float = 2.0:
@@ -25,14 +27,14 @@ var pitch : float = 0
 
 static var instance: PlayerCamera
 
-static var yaw_sensitivity: float = 0.1
+static var yaw_sensitivity: float = 0.2
 static var pitch_sensitivity: float = 0.1
 
-var yaw_acceleration: float = 50
+var yaw_acceleration: float = 60
 var pitch_acceleration: float = 20
 
 var pitch_max: float = 70
-var pitch_min: float = -65
+var pitch_min: float = -85
 
 var current_interacter: Node3D
 
@@ -69,7 +71,7 @@ func _physics_process(delta):
 		#yaw_node.rotation_degrees.y, yaw, yaw_acceleration * delta)
 	#pitch_node.rotation_degrees.x = lerp(
 		#pitch_node.rotation_degrees.x, pitch, pitch_acceleration * delta)
-		
+	
 	var player = Player.instance
 	var target_yaw = player.rotation_degrees.y - delta_yaw
 	var target_pitch = pitch_node.rotation_degrees.x + delta_pitch
@@ -91,4 +93,3 @@ func _physics_process(delta):
 		current_interacter = collider
 		if collider and collider.has_method("show_interact_hint"):
 			collider.show_interact_hint()
-	

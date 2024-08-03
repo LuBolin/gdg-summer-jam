@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bs3svin0exu0u"]
 
-[ext_resource type="PackedScene" uid="uid://b15d2oix81f2m" path="res://UI/cover.tscn" id="1_mupu1"]
-[ext_resource type="PackedScene" uid="uid://dsme7tymvsh5v" path="res://UI/settings.tscn" id="2_ox2ea"]
+[ext_resource type="PackedScene" uid="uid://b15d2oix81f2m" path="res://ui/cover.tscn" id="1_mupu1"]
+[ext_resource type="PackedScene" uid="uid://dsme7tymvsh5v" path="res://ui/settings.tscn" id="2_ox2ea"]
 [ext_resource type="AudioStream" uid="uid://dortwej8u3bcm" path="res://resources/menu-bgm.mp3" id="3_1bk7p"]
-[ext_resource type="PackedScene" uid="uid://pv5avlwpisfd" path="res://UI/victory.tscn" id="4_xdqon"]
+[ext_resource type="PackedScene" uid="uid://pv5avlwpisfd" path="res://ui/victory.tscn" id="4_xdqon"]
 
 [node name="Main" type="Node3D"]
 

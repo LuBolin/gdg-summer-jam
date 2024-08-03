@@ -39,18 +39,22 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_gai80")
 show_bbox = true
-editor_force_update = null
 
 [node name="PickSphere" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_pjlsh")
 skeleton = NodePath("")
 
 [node name="InteractLabel" type="Label3D" parent="PickSphere"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, -2)
 pixel_size = 0.02
 billboard = 1
 texture_filter = 0
-text = "E to pick up"
+text = "
+E to pick up
+
+ "
+font_size = 48
+outline_size = 8
 
 [node name="BBox" type="MeshInstance3D" parent="."]
 layers = 5

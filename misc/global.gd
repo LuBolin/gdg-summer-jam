@@ -4,6 +4,7 @@ signal to_main_menu
 signal request_start_game
 signal restart
 signal victory
+signal death
 
 signal all_parts_picked_up
 
@@ -15,8 +16,6 @@ var current_game_world: Node3D
 func _ready():
 	request_start_game.connect(start_game)
 	restart.connect(restart_game)
-	#victory.connect(func(): in_game = false)
-	#to_main_menu.connect(func(): in_game = false)
 
 func _input(event):
 	if OS.is_debug_build():
@@ -42,6 +41,8 @@ func end_game():
 		var root: Node = get_tree().get_root().get_child(0)
 		current_game_world.queue_free()
 		await current_game_world.tree_exited
+		Player.instance = null
+		PlayerCamera.instance = null
 		current_game_world = null
 
 func restart_game():

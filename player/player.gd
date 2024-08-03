@@ -44,10 +44,11 @@ func _physics_process(delta):
 	move_and_slide()
 
 func jump(strength, exit = false):
-	yvel = strength
-	if exit:
-		if cog and cog is Planet:
-			cog.extrude_body(self)
+	if is_on_planet():
+		yvel = strength
+		if exit:
+			if cog and cog is Planet:
+				cog.extrude_body(self)
 
 func get_velocity_basis(vector):
 	return Vector3(vector.x * transform.basis.x + vector.y * transform.basis.y + vector.z * transform.basis.z)
@@ -76,3 +77,11 @@ func set_cog(planet):
 		cog = planet
 		return true
 	return false
+
+func die():
+	var pc: PlayerCamera = PlayerCamera.instance
+	var anim_player: AnimationPlayer = pc.death_anim_player
+	if pc:
+		anim_player.play("die")
+	await anim_player.animation_finished
+	Global.restart.emit()

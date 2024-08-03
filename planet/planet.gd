@@ -96,6 +96,8 @@ func get_force():
 
 func update_object(object, position_change):
 	#adjust position
+	if not object:
+		return
 	object.global_position += position_change
 	
 	var delta = get_process_delta_time()
@@ -121,7 +123,6 @@ func _on_gravity_field_body_entered(body):
 	if body is Player:
 		if not body.set_cog(self):
 			return
-		print(body)
 		objects_on_planet.append(body)
 
 func extrude_body(body):

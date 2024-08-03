@@ -91,6 +91,15 @@ grow_vertical = 2
 texture = ExtResource("2_4uu1i")
 expand_mode = 1
 
+[node name="Label" type="Control" parent="VBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBox/Label"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "   Shift to cancel jump"
+
 [node name="Stretch2" type="Control" parent="VBox"]
 layout_mode = 2
 size_flags_vertical = 3
