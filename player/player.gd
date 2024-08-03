@@ -31,7 +31,7 @@ func _physics_process(delta):
 				yvel -= delta 
 		else:
 			pass
-	#print(basis)
+	# print(basis)
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -39,9 +39,13 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+	if not is_on_planet():
+		velocity.x *= 0.1
+		velocity.z *= 0.1
 	velocity = get_velocity_basis(Vector3(velocity.x, yvel, velocity.z))
 	#velocity = Vector3(0, yvel, 0)
 	move_and_slide()
+
 
 func jump(strength, exit = false):
 	if is_on_planet():
@@ -72,6 +76,9 @@ func set_cog(planet):
 	if planet == null:
 		cog = planet
 		return true
+	if planet.name == 'Sun':
+		die()
+		return
 	if cog == null:
 		yvel = 0
 		cog = planet
@@ -83,5 +90,5 @@ func die():
 	var anim_player: AnimationPlayer = pc.death_anim_player
 	if pc:
 		anim_player.play("die")
-	await anim_player.animation_finished
-	Global.restart.emit()
+		await anim_player.animation_finished
+		Global.restart.emit()

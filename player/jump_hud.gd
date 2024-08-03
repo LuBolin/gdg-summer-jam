@@ -57,8 +57,8 @@ func jump():
 		jump_indicator.set_amount(1)
 		jump_indicator.set_amount(cur_ammount)
 	var p: Player = Player.instance
-	print("Jump with strength: ", strength)
+	# print("Jump with strength: ", strength)
 	var exit = strength == max_strength
 	if exit:
-		strength *= 2
+		strength *= 3
 	p.jump(strength, exit)

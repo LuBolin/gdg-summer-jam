@@ -191,9 +191,9 @@ fit_content = true
 
 [node name="Label2" type="Label" parent="Main/HBox/Right"]
 layout_mode = 2
-text = "Goh Yin Jie
-Lee Jie Hui
-Lu Bolin"
+text = "Lee Jie Hui
+Lu Bolin
+Goh Yin Jie"
 horizontal_alignment = 2
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="."]

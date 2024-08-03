@@ -54,4 +54,5 @@ func _on_body_exited(body: Node3D):
 	if ready_to_exit:
 		Global.victory.emit()
 	else:
-		Global.restart.emit()
+		body.die()
+		# Global.restart.emit()

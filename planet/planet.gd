@@ -130,7 +130,7 @@ func extrude_body(body):
 		return
 	for i in range(len(objects_on_planet)):
 		if body == objects_on_planet[i]:
-			print("renoied")
+			# print("renoied")
 			objects_on_planet.remove_at(i)
 			body.set_cog(null)
 
