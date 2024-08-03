@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgecqjxsjatw1"]
+[gd_scene load_steps=8 format=3 uid="uid://dgecqjxsjatw1"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_3u122"]
 [ext_resource type="PackedScene" uid="uid://cdjeeo1fkr11e" path="res://player/model/astronaut.tscn" id="2_061g3"]
+[ext_resource type="Script" path="res://player/model/astronaut.gd" id="3_onmma"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u43rb"]
 radius = 0.1
@@ -25,6 +26,7 @@ script = ExtResource("1_3u122")
 
 [node name="astronaut" parent="." instance=ExtResource("2_061g3")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.256723, 0)
+script = ExtResource("3_onmma")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false

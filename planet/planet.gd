@@ -41,6 +41,8 @@ extends CharacterBody3D
 	set(v):
 		t = v
 		pos_sync()
+		
+@export var mesh : SphereMesh
 
 var objects_on_planet = []
 
@@ -57,6 +59,7 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 	gf_visuals.hide()
+	$MeshInstance3D.mesh = mesh
 	#set scaling
 	# self.scale = self.scale * planet_scale
 	# gravity_field.scale = gravity_field.scale * field_planet_ratio

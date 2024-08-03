@@ -3,7 +3,7 @@ extends Area3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape
 @onready var visual_indicator: MeshInstance3D = $VisualIndicator
 
-@export var radius: float = 100:
+@export var radius: float = 200:
 	set(v):
 		radius = v
 		var mesh: SphereMesh = visual_indicator.get_mesh()

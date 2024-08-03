@@ -23,6 +23,7 @@ material = SubResource("StandardMaterial3D_6wcgi")
 [node name="Planet" type="CharacterBody3D"]
 script = ExtResource("1_uctu8")
 rotation_axis = Vector3(0.707107, 0.707107, 0)
+mesh = Color(0, 0, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_2xfha")
