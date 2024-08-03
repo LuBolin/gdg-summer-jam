@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgwg72e8h87xs"]
+[gd_scene load_steps=9 format=3 uid="uid://cgwg72e8h87xs"]
 
 [ext_resource type="Script" path="res://planet/planet.gd" id="1_uctu8"]
 [ext_resource type="Texture2D" uid="uid://d2splu2b730hs" path="res://resources/victory.png" id="2_8b3dw"]
@@ -6,6 +6,13 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_2xfha"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vhxg4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk8cu"]
+transparency = 1
+albedo_color = Color(0.305882, 1, 0.305882, 0.141176)
+
+[sub_resource type="SphereMesh" id="SphereMesh_yfwm1"]
+material = SubResource("StandardMaterial3D_kk8cu")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6wcgi"]
 albedo_texture = ExtResource("2_8b3dw")
@@ -15,15 +22,19 @@ material = SubResource("StandardMaterial3D_6wcgi")
 
 [node name="Planet" type="CharacterBody3D"]
 script = ExtResource("1_uctu8")
-planet_scale = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_2xfha")
 
 [node name="GravityField" type="Area3D" parent="."]
+unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GravityField"]
 shape = SubResource("SphereShape3D_vhxg4")
+
+[node name="GFVisuals" type="MeshInstance3D" parent="GravityField/CollisionShape3D"]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_yfwm1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_mi2t7")

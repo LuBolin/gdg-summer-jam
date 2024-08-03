@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://wtkoetjws1fl"]
+[gd_scene load_steps=13 format=3 uid="uid://wtkoetjws1fl"]
 
 [ext_resource type="PackedScene" uid="uid://dgecqjxsjatw1" path="res://player/player.tscn" id="1_p0w5c"]
 [ext_resource type="PackedScene" uid="uid://dqg1ybhx0mpqb" path="res://progress_3d/rocket_part.tscn" id="3_iwdau"]
 [ext_resource type="PackedScene" uid="uid://cgwg72e8h87xs" path="res://planet/planet.tscn" id="3_kmyob"]
 [ext_resource type="SphereMesh" uid="uid://bksoc03rxvutg" path="res://resources/top_mesh.tres" id="4_2od57"]
 [ext_resource type="PackedScene" uid="uid://b3v8x6xddq0qe" path="res://player/player_camera.tscn" id="5_yayjq"]
+[ext_resource type="Script" path="res://galaxy_range.gd" id="6_x8lai"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_0hfbx"]
 top_radius = 0.8
@@ -21,39 +22,45 @@ top_radius = 0.8
 bottom_radius = 1.5
 height = 1.5
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_3si5q"]
+radius = 50.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qik2l"]
+transparency = 1
+albedo_color = Color(0.8, 0, 0, 0.439216)
+
+[sub_resource type="SphereMesh" id="SphereMesh_81phe"]
+material = SubResource("StandardMaterial3D_qik2l")
+flip_faces = true
+radius = 100.0
+height = 200.0
+
 [node name="GameWorld" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_p0w5c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3548, 0.248, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.3548, 1.248, 0)
 
 [node name="PlayerCamera" parent="Player" instance=ExtResource("5_yayjq")]
 y_offset = 0.5
 
 [node name="Planet" parent="." instance=ExtResource("3_kmyob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 0)
-planet_scale = 3
-field_planet_ratio = 3.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 8.74228e-07)
+planet_scale = 2.0
+field_planet_ratio = 4.0
+rotation_axis = Vector3(0.707107, 0.707107, 0)
 orbit_period = 60
 orbit_radius = 5
 
 [node name="Planet2" parent="." instance=ExtResource("3_kmyob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
-planet_scale = 2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
 field_planet_ratio = 3.0
-orbit_period = 60
+rotation_axis = Vector3(0.707107, 0.707107, 0)
+orbit_axis = Vector3(0, 1, 1)
+orbit_period = 20
 orbit_radius = 10
-t = 3.142
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 13, 11.7034)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(5.9, 0, 0, 0, 1, 0, 0, 0, 3.7, 30.05, 0, 1.85)
-size = Vector3(4, 1, 10)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.2209, 2.5, -1.85)
-size = Vector3(1, 4, 20)
 
 [node name="Top" parent="." instance=ExtResource("3_iwdau")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -7)
@@ -88,3 +95,12 @@ pick_sphere_y = -3.0
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Btm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 mesh = SubResource("CylinderMesh_6hwo6")
+
+[node name="GalaxyRange" type="Area3D" parent="."]
+script = ExtResource("6_x8lai")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="GalaxyRange"]
+shape = SubResource("SphereShape3D_3si5q")
+
+[node name="VisualIndicator" type="MeshInstance3D" parent="GalaxyRange"]
+mesh = SubResource("SphereMesh_81phe")
