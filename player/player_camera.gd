@@ -15,8 +15,10 @@ extends Node3D
 		var cam_yaw: Node3D = get_node_or_null("CamYaw")
 		if not cam_yaw:
 			return
-		cam_yaw.position = Vector3(0, y_offset, 0)
-		jump_dirn_indicator.position = Vector3(0, y_offset, 0)
+		if cam_yaw:
+			cam_yaw.position = Vector3(0, y_offset, 0)
+		if jump_dirn_indicator:
+			jump_dirn_indicator.position = Vector3(0, y_offset, 0)
 
 var yaw : float = 0
 var pitch : float = 0
