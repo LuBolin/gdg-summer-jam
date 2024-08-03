@@ -13,7 +13,9 @@ config_version=5
 config/name="gdg-summer-jam"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://misc/icon.svg"
+config/icon="res://resources/icon.png"
+config/macos_native_icon="res://resources/icon.icns"
+config/windows_native_icon="res://resources/icon.ico"
 
 [audio]
 
@@ -22,6 +24,10 @@ buses/default_bus_layout="res://misc/default_bus_layout.tres"
 [autoload]
 
 Global="*res://misc/global.gd"
+
+[display]
+
+window/stretch/mode="viewport"
 
 [input]
 
