@@ -39,6 +39,7 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_gai80")
 show_bbox = true
+editor_force_update = null
 
 [node name="PickSphere" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_pjlsh")

@@ -23,7 +23,7 @@ extends CharacterBody3D
 		pos_sync()
 @export var orbit_axis = Vector3(0, 1, 0):
 	set(v):
-		orbit_axis = v
+		orbit_axis = v.normalized()
 		pos_sync()
 @export var orbit_period = 1:
 	set(v):
@@ -45,6 +45,8 @@ extends CharacterBody3D
 var objects_on_planet = []
 
 func pos_sync():
+	if not is_inside_tree():
+		return
 	global_position = center + ( \
 		Vector3(2 * cos(t / orbit_period), 
 		0, 

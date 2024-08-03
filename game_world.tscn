@@ -51,14 +51,12 @@ y_offset = 0.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 8.74228e-07)
 planet_scale = 2.0
 field_planet_ratio = 4.0
-rotation_axis = Vector3(0.707107, 0.707107, 0)
 orbit_period = 60
 orbit_radius = 5
 
 [node name="Planet2" parent="." instance=ExtResource("3_kmyob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
 field_planet_ratio = 3.0
-rotation_axis = Vector3(0.707107, 0.707107, 0)
 orbit_axis = Vector3(0, 1, 1)
 orbit_period = 20
 orbit_radius = 10
