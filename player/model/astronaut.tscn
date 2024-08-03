@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdjeeo1fkr11e"]
+
+[ext_resource type="PackedScene" uid="uid://dkhop0f5cjgma" path="res://player/model/astronaut.glb" id="1_udpb5"]
+[ext_resource type="Texture2D" uid="uid://j00suho4cti6" path="res://player/model/astronaut_PixelTextureGrid_64.png" id="2_jiqrb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qeq1g"]
+albedo_texture = ExtResource("2_jiqrb")
+texture_filter = 0
+
+[node name="astronaut" instance=ExtResource("1_udpb5")]
+
+[node name="Astronaut" parent="Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qeq1g")

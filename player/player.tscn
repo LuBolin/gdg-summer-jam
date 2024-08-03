@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgecqjxsjatw1"]
+[gd_scene load_steps=7 format=3 uid="uid://dgecqjxsjatw1"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_3u122"]
+[ext_resource type="PackedScene" uid="uid://cdjeeo1fkr11e" path="res://player/model/astronaut.tscn" id="2_061g3"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u43rb"]
 radius = 0.1
@@ -22,7 +23,11 @@ axis_lock_angular_z = true
 motion_mode = 1
 script = ExtResource("1_3u122")
 
+[node name="astronaut" parent="." instance=ExtResource("2_061g3")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -0.256723, 0)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("CapsuleMesh_u43rb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -34,8 +39,10 @@ target_position = Vector3(0, -0.1, 0)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.109321)
+visible = false
 mesh = SubResource("BoxMesh_8rrwg")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.227484, 0)
+visible = false
 mesh = SubResource("PrismMesh_qdayc")
