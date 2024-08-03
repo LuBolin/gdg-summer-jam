@@ -61,6 +61,30 @@ var model: MeshInstance3D
 
 var initialized = false
 
+@export var editor_force_update: bool = true:
+	set(v):
+		var model = null
+		for c in get_children():
+			if not c is MeshInstance3D:
+				continue
+			elif c in [pick_sphere, b_box]:
+				continue
+			else:
+				model = c
+				break
+		if not model:
+			return
+		var dupe_mesh = model.mesh.duplicate()
+		var mat = StandardMaterial3D.new()
+		# Transparency TRANSPARENCY_ALPHA = 1
+		mat.set_transparency(1)
+		mat.albedo_color = Color(Color.STEEL_BLUE, 0.75)
+		dupe_mesh.set_material(mat)
+		var ill_mesh = get_node("IllusionBody/IllusionMesh")
+		if ill_mesh:
+			ill_mesh.mesh = dupe_mesh
+			ill_mesh.set_position(model.get_position())
+
 func _ready():
 	if self_destruct:
 		queue_free()

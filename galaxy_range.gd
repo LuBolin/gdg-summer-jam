@@ -18,6 +18,8 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 	
+	self.visible = true
+	
 	self.body_exited.connect(_on_body_exited)
 	Global.all_parts_picked_up.connect(_ready_to_leave)
 	

@@ -3,9 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://dgecqjxsjatw1" path="res://player/player.tscn" id="1_p0w5c"]
 [ext_resource type="PackedScene" uid="uid://dqg1ybhx0mpqb" path="res://progress_3d/rocket_part.tscn" id="3_iwdau"]
 [ext_resource type="PackedScene" uid="uid://cgwg72e8h87xs" path="res://planet/planet.tscn" id="3_kmyob"]
-[ext_resource type="SphereMesh" uid="uid://bksoc03rxvutg" path="res://resources/top_mesh.tres" id="4_2od57"]
 [ext_resource type="PackedScene" uid="uid://b3v8x6xddq0qe" path="res://player/player_camera.tscn" id="5_yayjq"]
 [ext_resource type="Script" path="res://galaxy_range.gd" id="6_x8lai"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_y7mvc"]
+top_radius = 0.0
+bottom_radius = 0.8
+height = 2.2
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_0hfbx"]
 top_radius = 0.8
@@ -68,8 +72,8 @@ pick_sphere_radius = 1.5
 pick_sphere_y = 3.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Top"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.975, 0)
-mesh = ExtResource("4_2od57")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1, 0)
+mesh = SubResource("CylinderMesh_y7mvc")
 
 [node name="Mid1" parent="." instance=ExtResource("3_iwdau")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 3, 0)
@@ -97,6 +101,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 mesh = SubResource("CylinderMesh_6hwo6")
 
 [node name="GalaxyRange" type="Area3D" parent="."]
+visible = false
 script = ExtResource("6_x8lai")
 
 [node name="CollisionShape" type="CollisionShape3D" parent="GalaxyRange"]
